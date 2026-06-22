@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Software Developer</title>
+<meta name="description" content="Portfolio of Your Name, a software developer building reliable, human-centered software.">
+
+<!-- Fonts: Fraunces (display serif) + Space Grotesk (body) + Space Mono (labels) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:        #0f0f0d;
+    --bg-raise:  #171714;
+    --line:      #2a2a25;
+    --text:      #ece7dd;
+    --muted:     #908a7c;
+    --accent:    #cbf24e;
+    --accent-dim:#9bb73a;
+
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body:    "Space Grotesk", system-ui, sans-serif;
+    --font-mono:    "Space Mono", ui-monospace, monospace;
+
+    --maxw: 1120px;
+    --gut: clamp(20px, 5vw, 64px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent); color: #0f0f0d; }
+
+  a { color: inherit; text-decoration: none; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gut); }
+
+  /* ---- Eyebrow label ---- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: lowercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* ---- Nav ---- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,15,13,0.72);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .brand b { color: var(--accent); font-weight: 600; }
+  .nav-links { display: flex; gap: 34px; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    transition: color .2s ease;
+    position: relative;
+  }
+  .nav-links a .idx { color: var(--accent); margin-right: 4px; }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a.active::after {
+    content:""; position:absolute; left:0; right:0; bottom:-6px;
+    height:1px; background: var(--accent);
+  }
+  .menu-btn {
+    display: none; background: none; border: 1px solid var(--line);
+    color: var(--text); width: 42px; height: 42px; cursor: pointer;
+    align-items: center; justify-content: center;
+  }
+  .menu-btn svg { width: 20px; height: 20px; }
+
+  /* ---- Hero ---- */
+  .hero { padding: clamp(60px, 12vh, 130px) 0 clamp(50px, 9vh, 110px); }
+  .status {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--font-mono); font-size: 13px; color: var(--muted);
+    margin-bottom: 30px;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); position: relative;
+  }
+  .dot::after {
+    content:""; position:absolute; inset:-4px; border-radius:50%;
+    border:1px solid var(--accent); animation: ping 2.2s ease-out infinite;
+  }
+  @keyframes ping { 0%{transform:scale(.6);opacity:.9} 100%{transform:scale(1.9);opacity:0} }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .hero-sub {
+    margin-top: 30px;
+    max-width: 52ch;
+    font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+    color: var(--muted);
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 42px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 14px;
+    padding: 15px 26px; cursor: pointer;
+    transition: transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn svg { width: 16px; height: 16px; }
+  .btn-primary { background: var(--accent); color: #0f0f0d; border: 1px solid var(--accent); font-weight: 700; }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* ---- Section scaffolding ---- */
+  section[id] { scroll-margin-top: 90px; }
+  .block { padding: clamp(64px, 11vh, 130px) 0; border-top: 1px solid var(--line); }
+  .head { margin-bottom: 56px; }
+  .head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: -0.02em;
+    margin-top: 16px;
+  }
+
+  /* ---- About ---- */
+  .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(30px, 6vw, 80px); align-items: start; }
+  .about-grid p { color: var(--muted); margin-bottom: 18px; max-width: 60ch; }
+  .about-grid p strong { color: var(--text); font-weight: 500; }
+  .stack-card { border: 1px solid var(--line); background: var(--bg-raise); padding: 28px; }
+  .stack-card h3 { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-family: var(--font-mono); font-size: 13px; padding: 6px 12px; border: 1px solid var(--line); color: var(--text); }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---- Projects ---- */
+  .projects { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .project {
+    background: var(--bg);
+    padding: clamp(26px, 4vw, 44px);
+    display: grid; grid-template-columns: 140px 1fr auto; gap: 28px;
+    align-items: start;
+    transition: background .25s ease;
+  }
+  .project:hover { background: var(--bg-raise); }
+  .project .pnum { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+  .project h3 { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 500; margin-bottom: 12px; }
+  .project p { color: var(--muted); max-width: 56ch; margin-bottom: 18px; }
+  .project .tech { display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .project .tech span::before { content: "› "; color: var(--accent); }
+  .project-links { display: flex; gap: 14px; }
+  .icon-link {
+    width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); color: var(--muted);
+    transition: color .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .icon-link:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .icon-link svg { width: 18px; height: 18px; }
+
+  /* ---- Skills ---- */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .skill { background: var(--bg); padding: 30px; }
+  .skill h3 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .skill ul { list-style: none; }
+  .skill li { padding: 7px 0; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 15px; }
+  .skill li:last-child { border-bottom: 0; }
+
+  /* ---- Experience (real chronological sequence -> numbered) ---- */
+  .xp { display: grid; gap: 0; }
+  .xp-item { display: grid; grid-template-columns: 200px 1fr; gap: 40px; padding: 34px 0; border-top: 1px solid var(--line); }
+  .xp-item:first-child { border-top: 0; }
+  .xp-when { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding-top: 6px; }
+  .xp-body h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; }
+  .xp-body .co { color: var(--accent); }
+  .xp-body ul { list-style: none; margin-top: 14px; }
+  .xp-body li { color: var(--muted); padding-left: 22px; position: relative; margin-bottom: 8px; max-width: 64ch; }
+  .xp-body li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+
+  /* ---- Contact ---- */
+  .contact { text-align: left; }
+  .contact .big {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 8vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 20px 0 36px;
+  }
+  .contact .big a { border-bottom: 2px solid var(--line); transition: border-color .2s ease, color .2s ease; }
+  .contact .big a:hover { color: var(--accent); border-color: var(--accent); }
+  .contact p { color: var(--muted); max-width: 50ch; }
+
+  /* ---- Footer ---- */
+  footer { border-top: 1px solid var(--line); padding: 40px 0; }
+  .foot-inner { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; }
+  .socials { display: flex; gap: 14px; }
+  .foot-note { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+  /* ---- Reveal animation ---- */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .menu-btn { display: inline-flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column; gap: 22px;
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: var(--bg-raise); border-bottom: 1px solid var(--line);
+      padding: 26px var(--gut);
+    }
+    .about-grid { grid-template-columns: 1fr; }
+    .project { grid-template-columns: 1fr; gap: 16px; }
+    .project-links { order: 3; }
+    .xp-item { grid-template-columns: 1fr; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">Your<b>Name</b></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about"><span class="idx">01</span>about</a></li>
+        <li><a href="#work"><span class="idx">02</span>work</a></li>
+        <li><a href="#skills"><span class="idx">03</span>skills</a></li>
+        <li><a href="#path"><span class="idx">04</span>path</a></li>
+        <li><a href="#contact"><span class="idx">05</span>contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<main id="top">
+<section class="hero wrap">
+  <span class="status"><span class="dot"></span> available for new work · 2026</span>
+  <h1>I build software<br>that <em>holds up</em>.</h1>
+  <p class="hero-sub">
+    I'm <strong>Your Name</strong>, a software developer who cares about the parts people
+    never see — clear data structures, honest error handling, and interfaces that
+    don't get in the way. Currently sharpening my craft in <strong>Java</strong> and the web.
+  </p>
+  <div class="actions">
+    <a href="#work" class="btn btn-primary">
+      See selected work
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a href="mailto:youremail@example.com" class="btn btn-ghost">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
+      Get in touch
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="block">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">// about</span>
+      <h2>A developer, still learning out loud.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>
+          My route into software started with curiosity rather than a classroom — taking
+          small programs apart to see what made them tick. That habit became a craft.
+        </p>
+        <p>
+          These days I work mostly in <strong>Java</strong> and on the web, building things
+          like data structures from scratch and small tools that solve real, if modest,
+          problems. I care about code that the next person — often future me — can read
+          without a map.
+        </p>
+        <p>
+          When I'm not writing code, I'm usually reading about how other people write
+          theirs. <strong>Replace this with your own story</strong> — what drew you in,
+          what you're aiming at next.
+        </p>
+      </div>
+      <aside class="stack-card reveal">
+        <h3>Working with lately</h3>
+        <div class="chips">
+          <span class="chip">Java</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">HTML / CSS</span>
+          <span class="chip">Data Structures</span>
+          <span class="chip">Git</span>
+          <span class="chip">Python</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="block">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">// selected work</span>
+      <h2>Things I've built.</h2>
+    </div>
+    <div class="projects">
+
+      <article class="project reveal">
+        <span class="pnum">P · 01</span>
+        <div>
+          <h3>Linked List Library</h3>
+          <p>A from-scratch implementation of singly and doubly linked lists in Java, with a focus on clean iteration and predictable edge-case handling.</p>
+          <div class="tech"><span>Java</span><span>Data Structures</span><span>JUnit</span></div>
+        </div>
+        <div class="project-links">
+          <a class="icon-link" href="#" aria-label="View Linked List Library source on GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.4 6.9 9.8.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.2-4.6-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.8-4.6 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.4 6.9-5.2 6.9-9.8C22 6.6 17.5 2 12 2Z"/></svg>
+          </a>
+          <a class="icon-link" href="#" aria-label="View Linked List Library live demo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <span class="pnum">P · 02</span>
+        <div>
+          <h3>Project Two</h3>
+          <p>A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.</p>
+          <div class="tech"><span>JavaScript</span><span>Node.js</span><span>SQLite</span></div>
+        </div>
+        <div class="project-links">
+          <a class="icon-link" href="#" aria-label="View Project Two source on GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.4 6.9 9.8.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.2-4.6-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.8-4.6 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.4 6.9-5.2 6.9-9.8C22 6.6 17.5 2 12 2Z"/></svg>
+          </a>
+          <a class="icon-link" href="#" aria-label="View Project Two live demo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <span class="pnum">P · 03</span>
+        <div>
+          <h3>Project Three</h3>
+          <p>A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.</p>
+          <div class="tech"><span>Python</span><span>Flask</span><span>PostgreSQL</span></div>
+        </div>
+        <div class="project-links">
+          <a class="icon-link" href="#" aria-label="View Project Three source on GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.4 6.9 9.8.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.2-4.6-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.8-4.6 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.4 6.9-5.2 6.9-9.8C22 6.6 17.5 2 12 2Z"/></svg>
+          </a>
+          <a class="icon-link" href="#" aria-label="View Project Three live demo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="block">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">// toolkit</span>
+      <h2>What I reach for.</h2>
+    </div>
+    <div class="skills">
+      <div class="skill reveal">
+        <h3>Languages</h3>
+        <ul><li>Java</li><li>JavaScript</li><li>Python</li><li>SQL</li><li>HTML &amp; CSS</li></ul>
+      </div>
+      <div class="skill reveal">
+        <h3>Frameworks</h3>
+        <ul><li>Node.js / Express</li><li>Flask</li><li>JUnit</li></ul>
+      </div>
+      <div class="skill reveal">
+        <h3>Tools</h3>
+        <ul><li>Git &amp; GitHub</li><li>VS Code</li><li>IntelliJ IDEA</li><li>Docker</li></ul>
+      </div>
+      <div class="skill reveal">
+        <h3>Foundations</h3>
+        <ul><li>Data Structures</li><li>Algorithms</li><li>OOP</li><li>REST APIs</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATH / EXPERIENCE -->
+<section id="path" class="block">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">// path</span>
+      <h2>Where I've been.</h2>
+    </div>
+    <div class="xp">
+      <div class="xp-item reveal">
+        <div class="xp-when">2024 — Present</div>
+        <div class="xp-body">
+          <h3>Role / Title <span class="co">@ Company or School</span></h3>
+          <ul>
+            <li>Describe a real responsibility and the impact it had — numbers help.</li>
+            <li>Name a specific technology you worked with and what you shipped.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="xp-item reveal">
+        <div class="xp-when">2022 — 2024</div>
+        <div class="xp-body">
+          <h3>Earlier Role <span class="co">@ Previous Place</span></h3>
+          <ul>
+            <li>Another concrete contribution, framed around outcome not activity.</li>
+            <li>One thing you learned that changed how you work.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="block contact">
+  <div class="wrap">
+    <span class="eyebrow reveal">// say hello</span>
+    <p class="big reveal"><a href="mailto:youremail@example.com">Let's build<br>something.</a></p>
+    <p class="reveal">
+      I'm open to junior roles, internships, and interesting collaborations.
+      The fastest way to reach me is email — I read everything.
+    </p>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <span class="foot-note">© 2026 Your Name — built by hand.</span>
+    <div class="socials">
+      <a class="icon-link" href="#" aria-label="GitHub profile">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.4 6.9 9.8.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.2-4.6-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.8-4.6 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.4 6.9-5.2 6.9-9.8C22 6.6 17.5 2 12 2Z"/></svg>
+      </a>
+      <a class="icon-link" href="#" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9V9Z"/></svg>
+      </a>
+      <a class="icon-link" href="mailto:youremail@example.com" aria-label="Email me">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    })
+  );
+
+  // Scroll reveal (respects reduced motion)
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = (i % 4) * 60 + 'ms';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // Active nav link on scroll
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const linkFor = id => document.querySelector('.nav-links a[href="#' + id + '"]');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const link = linkFor(e.target.id);
+      if (!link) return;
+      if (e.isIntersecting) {
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+</script>
+</body>
+</html>
