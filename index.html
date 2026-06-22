@@ -181,6 +181,18 @@
   .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
   .theme-btn svg { width: 18px; height: 18px; }
 
+  .lang { display: inline-flex; border: 1px solid var(--line); }
+  .lang-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .05em;
+    color: var(--muted); padding: 9px 11px; line-height: 1;
+    transition: color .2s ease, background .2s ease;
+  }
+  .lang-btn + .lang-btn { border-left: 1px solid var(--line); }
+  .lang-btn:hover { color: var(--text); }
+  .lang-btn.active { color: #0f0f0d; background: var(--accent); }
+  [data-theme="light"] .lang-btn.active { color: #fff; }
+
   /* ---- Hero ---- */
   .hero { padding: clamp(60px, 12vh, 130px) 0 clamp(50px, 9vh, 110px); position: relative; }
   /* soft accent glow sitting behind the headline */
@@ -383,13 +395,18 @@
     <div class="nav-right">
       <nav>
         <ul class="nav-links" id="navLinks">
-          <li><a href="#about"><span class="idx">01</span>about</a></li>
-          <li><a href="#work"><span class="idx">02</span>work</a></li>
-          <li><a href="#skills"><span class="idx">03</span>skills</a></li>
-          <li><a href="#path"><span class="idx">04</span>path</a></li>
-          <li><a href="#contact"><span class="idx">05</span>contact</a></li>
+          <li><a href="#about"><span class="idx">01</span><span data-i18n="nav.about">about</span></a></li>
+          <li><a href="#work"><span class="idx">02</span><span data-i18n="nav.work">work</span></a></li>
+          <li><a href="#skills"><span class="idx">03</span><span data-i18n="nav.skills">skills</span></a></li>
+          <li><a href="#path"><span class="idx">04</span><span data-i18n="nav.path">path</span></a></li>
+          <li><a href="#contact"><span class="idx">05</span><span data-i18n="nav.contact">contact</span></a></li>
         </ul>
       </nav>
+      <div class="lang" id="lang" role="group" aria-label="Select language">
+        <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        <button class="lang-btn" data-lang="de" aria-pressed="false">DE</button>
+        <button class="lang-btn" data-lang="mn" aria-pressed="false">MN</button>
+      </div>
       <button class="theme-btn" id="themeBtn" aria-label="Switch to light theme">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg>
       </button>
@@ -403,21 +420,21 @@
 <!-- HERO -->
 <main id="top">
 <section class="hero wrap">
-  <span class="status"><span class="dot"></span> available for new work · 2026</span>
-  <h1>I build software<br>that <em>holds up</em>.</h1>
-  <p class="hero-sub">
+  <span class="status"><span class="dot"></span> <span data-i18n="hero.status">available for new work · 2026</span></span>
+  <h1 data-i18n="hero.h1">I build software<br>that <em>holds up</em>.</h1>
+  <p class="hero-sub" data-i18n="hero.sub">
     I'm <strong>Galaa Sanjjav</strong>, a software developer who cares about the parts people
     never see — clear data structures, honest error handling, and interfaces that
     don't get in the way. Currently sharpening my craft in <strong>Java</strong> and the web.
   </p>
   <div class="actions">
     <a href="#work" class="btn btn-primary">
-      See selected work
+      <span data-i18n="hero.cta1">See selected work</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
     <a href="mailto:galaa07082004@gmail.com" class="btn btn-ghost">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
-      Get in touch
+      <span data-i18n="hero.cta2">Get in touch</span>
     </a>
   </div>
 </section>
@@ -426,29 +443,29 @@
 <section id="about" class="block">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">// about</span>
-      <h2>A developer, still learning out loud.</h2>
+      <span class="eyebrow" data-i18n="about.eyebrow">// about</span>
+      <h2 data-i18n="about.title">A developer, still learning out loud.</h2>
     </div>
     <div class="about-grid">
       <div class="reveal">
-        <p>
+        <p data-i18n="about.p1">
           My route into software started with curiosity rather than a classroom — taking
           small programs apart to see what made them tick. That habit became a craft.
         </p>
-        <p>
+        <p data-i18n="about.p2">
           These days I work mostly in <strong>Java</strong> and on the web, building things
           like data structures from scratch and small tools that solve real, if modest,
           problems. I care about code that the next person — often future me — can read
           without a map.
         </p>
-        <p>
+        <p data-i18n="about.p3">
           When I'm not writing code, I'm usually reading about how other people write
           theirs. <strong>Replace this with your own story</strong> — what drew you in,
           what you're aiming at next.
         </p>
       </div>
       <aside class="stack-card reveal">
-        <h3>Working with lately</h3>
+        <h3 data-i18n="about.stackTitle">Working with lately</h3>
         <div class="chips">
           <span class="chip">Java</span>
           <span class="chip">JavaScript</span>
@@ -466,16 +483,16 @@
 <section id="work" class="block">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">// selected work</span>
-      <h2>Things I've built.</h2>
+      <span class="eyebrow" data-i18n="work.eyebrow">// selected work</span>
+      <h2 data-i18n="work.title">Things I've built.</h2>
     </div>
     <div class="projects">
 
       <article class="project reveal">
         <span class="pnum">P · 01</span>
         <div>
-          <h3>Linked List Library</h3>
-          <p>A from-scratch implementation of singly and doubly linked lists in Java, with a focus on clean iteration and predictable edge-case handling.</p>
+          <h3 data-i18n="p1.title">Linked List Library</h3>
+          <p data-i18n="p1.desc">A from-scratch implementation of singly and doubly linked lists in Java, with a focus on clean iteration and predictable edge-case handling.</p>
           <div class="tech"><span>Java</span><span>Data Structures</span><span>JUnit</span></div>
         </div>
         <div class="project-links">
@@ -491,8 +508,8 @@
       <article class="project reveal">
         <span class="pnum">P · 02</span>
         <div>
-          <h3>Project Two</h3>
-          <p>A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.</p>
+          <h3 data-i18n="p2.title">Project Two</h3>
+          <p data-i18n="p2.desc">A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.</p>
           <div class="tech"><span>JavaScript</span><span>Node.js</span><span>SQLite</span></div>
         </div>
         <div class="project-links">
@@ -508,8 +525,8 @@
       <article class="project reveal">
         <span class="pnum">P · 03</span>
         <div>
-          <h3>Project Three</h3>
-          <p>A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.</p>
+          <h3 data-i18n="p3.title">Project Three</h3>
+          <p data-i18n="p3.desc">A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.</p>
           <div class="tech"><span>Python</span><span>Flask</span><span>PostgreSQL</span></div>
         </div>
         <div class="project-links">
@@ -530,24 +547,24 @@
 <section id="skills" class="block">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">// toolkit</span>
-      <h2>What I reach for.</h2>
+      <span class="eyebrow" data-i18n="skills.eyebrow">// toolkit</span>
+      <h2 data-i18n="skills.title">What I reach for.</h2>
     </div>
     <div class="skills">
       <div class="skill reveal">
-        <h3>Languages</h3>
+        <h3 data-i18n="skill1.title">Languages</h3>
         <ul><li>Java</li><li>JavaScript</li><li>Python</li><li>SQL</li><li>HTML &amp; CSS</li></ul>
       </div>
       <div class="skill reveal">
-        <h3>Frameworks</h3>
+        <h3 data-i18n="skill2.title">Frameworks</h3>
         <ul><li>Node.js / Express</li><li>Flask</li><li>JUnit</li></ul>
       </div>
       <div class="skill reveal">
-        <h3>Tools</h3>
+        <h3 data-i18n="skill3.title">Tools</h3>
         <ul><li>Git &amp; GitHub</li><li>VS Code</li><li>IntelliJ IDEA</li><li>Docker</li></ul>
       </div>
       <div class="skill reveal">
-        <h3>Foundations</h3>
+        <h3 data-i18n="skill4.title">Foundations</h3>
         <ul><li>Data Structures</li><li>Algorithms</li><li>OOP</li><li>REST APIs</li></ul>
       </div>
     </div>
@@ -558,27 +575,27 @@
 <section id="path" class="block">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">// path</span>
-      <h2>Where I've been.</h2>
+      <span class="eyebrow" data-i18n="path.eyebrow">// path</span>
+      <h2 data-i18n="path.title">Where I've been.</h2>
     </div>
     <div class="xp">
       <div class="xp-item reveal">
-        <div class="xp-when">2024 — Present</div>
+        <div class="xp-when" data-i18n="xp1.when">2024 — Present</div>
         <div class="xp-body">
-          <h3>Role / Title <span class="co">@ Company or School</span></h3>
+          <h3 data-i18n="xp1.role">Role / Title <span class="co">@ Company or School</span></h3>
           <ul>
-            <li>Describe a real responsibility and the impact it had — numbers help.</li>
-            <li>Name a specific technology you worked with and what you shipped.</li>
+            <li data-i18n="xp1.li1">Describe a real responsibility and the impact it had — numbers help.</li>
+            <li data-i18n="xp1.li2">Name a specific technology you worked with and what you shipped.</li>
           </ul>
         </div>
       </div>
       <div class="xp-item reveal">
-        <div class="xp-when">2022 — 2024</div>
+        <div class="xp-when" data-i18n="xp2.when">2022 — 2024</div>
         <div class="xp-body">
-          <h3>Earlier Role <span class="co">@ Previous Place</span></h3>
+          <h3 data-i18n="xp2.role">Earlier Role <span class="co">@ Previous Place</span></h3>
           <ul>
-            <li>Another concrete contribution, framed around outcome not activity.</li>
-            <li>One thing you learned that changed how you work.</li>
+            <li data-i18n="xp2.li1">Another concrete contribution, framed around outcome not activity.</li>
+            <li data-i18n="xp2.li2">One thing you learned that changed how you work.</li>
           </ul>
         </div>
       </div>
@@ -589,9 +606,9 @@
 <!-- CONTACT -->
 <section id="contact" class="block contact">
   <div class="wrap">
-    <span class="eyebrow reveal">// say hello</span>
-    <p class="big reveal"><a href="mailto:galaa07082004@gmail.com">Let's build<br>something.</a></p>
-    <p class="reveal">
+    <span class="eyebrow reveal" data-i18n="contact.eyebrow">// say hello</span>
+    <p class="big reveal"><a href="mailto:galaa07082004@gmail.com" data-i18n="contact.big">Let's build<br>something.</a></p>
+    <p class="reveal" data-i18n="contact.p">
       I'm open to junior roles, internships, and interesting collaborations.
       The fastest way to reach me is email — I read everything.
     </p>
@@ -602,7 +619,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="wrap foot-inner">
-    <span class="foot-note">© 2026 Your Name — built by hand.</span>
+    <span class="foot-note" data-i18n="foot.note">© 2026 Galaa Sanjjav — built by hand.</span>
     <div class="socials">
       <a class="icon-link" href="#" aria-label="GitHub profile">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.4 6.9 9.8.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.2-4.6-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.8-4.6 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.4 6.9-5.2 6.9-9.8C22 6.6 17.5 2 12 2Z"/></svg>
@@ -610,7 +627,7 @@
       <a class="icon-link" href="#" aria-label="LinkedIn profile">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9V9Z"/></svg>
       </a>
-      <a class="icon-link" href="mailto:youremail@example.com" aria-label="Email me">
+      <a class="icon-link" href="mailto:galaa07082004@gmail.com" aria-label="Email me">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
       </a>
     </div>
@@ -654,6 +671,126 @@
     localStorage.setItem('theme', next);
     applyTheme(next);
   });
+
+  // ---- Internationalization (EN / DE / MN) ----
+  const I18N = {
+    en: {
+      "nav.about": `about`, "nav.work": `work`, "nav.skills": `skills`, "nav.path": `path`, "nav.contact": `contact`,
+      "hero.status": `available for new work · 2026`,
+      "hero.h1": `I build software<br>that <em>holds up</em>.`,
+      "hero.sub": `I'm <strong>Galaa Sanjjav</strong>, a software developer who cares about the parts people never see — clear data structures, honest error handling, and interfaces that don't get in the way. Currently sharpening my craft in <strong>Java</strong> and the web.`,
+      "hero.cta1": `See selected work`, "hero.cta2": `Get in touch`,
+      "about.eyebrow": `// about`, "about.title": `A developer, still learning out loud.`,
+      "about.p1": `My route into software started with curiosity rather than a classroom — taking small programs apart to see what made them tick. That habit became a craft.`,
+      "about.p2": `These days I work mostly in <strong>Java</strong> and on the web, building things like data structures from scratch and small tools that solve real, if modest, problems. I care about code that the next person — often future me — can read without a map.`,
+      "about.p3": `When I'm not writing code, I'm usually reading about how other people write theirs. <strong>Replace this with your own story</strong> — what drew you in, what you're aiming at next.`,
+      "about.stackTitle": `Working with lately`,
+      "work.eyebrow": `// selected work`, "work.title": `Things I've built.`,
+      "p1.title": `Linked List Library`,
+      "p1.desc": `A from-scratch implementation of singly and doubly linked lists in Java, with a focus on clean iteration and predictable edge-case handling.`,
+      "p2.title": `Project Two`,
+      "p2.desc": `A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.`,
+      "p3.title": `Project Three`,
+      "p3.desc": `A short, specific description: the problem it solved, the tradeoff you made, and one outcome you're proud of. Avoid generic filler.`,
+      "skills.eyebrow": `// toolkit`, "skills.title": `What I reach for.`,
+      "skill1.title": `Languages`, "skill2.title": `Frameworks`, "skill3.title": `Tools`, "skill4.title": `Foundations`,
+      "path.eyebrow": `// path`, "path.title": `Where I've been.`,
+      "xp1.when": `2024 — Present`, "xp1.role": `Role / Title <span class="co">@ Company or School</span>`,
+      "xp1.li1": `Describe a real responsibility and the impact it had — numbers help.`,
+      "xp1.li2": `Name a specific technology you worked with and what you shipped.`,
+      "xp2.when": `2022 — 2024`, "xp2.role": `Earlier Role <span class="co">@ Previous Place</span>`,
+      "xp2.li1": `Another concrete contribution, framed around outcome not activity.`,
+      "xp2.li2": `One thing you learned that changed how you work.`,
+      "contact.eyebrow": `// say hello`, "contact.big": `Let's build<br>something.`,
+      "contact.p": `I'm open to junior roles, internships, and interesting collaborations. The fastest way to reach me is email — I read everything.`,
+      "foot.note": `© 2026 Galaa Sanjjav — built by hand.`
+    },
+    de: {
+      "nav.about": `über mich`, "nav.work": `arbeiten`, "nav.skills": `fähigkeiten`, "nav.path": `werdegang`, "nav.contact": `kontakt`,
+      "hero.status": `verfügbar für neue projekte · 2026`,
+      "hero.h1": `Ich baue Software,<br>die <em>Bestand hat</em>.`,
+      "hero.sub": `Ich bin <strong>Galaa Sanjjav</strong>, ein Softwareentwickler, dem die unsichtbaren Teile wichtig sind — klare Datenstrukturen, ehrliche Fehlerbehandlung und Oberflächen, die nicht im Weg stehen. Derzeit verfeinere ich mein Können in <strong>Java</strong> und im Web.`,
+      "hero.cta1": `Ausgewählte Arbeiten`, "hero.cta2": `Kontakt aufnehmen`,
+      "about.eyebrow": `// über mich`, "about.title": `Ein Entwickler, der noch immer laut lernt.`,
+      "about.p1": `Mein Weg in die Software begann mit Neugier statt mit einem Klassenzimmer — kleine Programme auseinanderzunehmen, um zu sehen, wie sie funktionieren. Aus dieser Gewohnheit wurde ein Handwerk.`,
+      "about.p2": `Heute arbeite ich vor allem mit <strong>Java</strong> und im Web, baue Dinge wie Datenstrukturen von Grund auf und kleine Werkzeuge, die echte, wenn auch bescheidene Probleme lösen. Mir ist Code wichtig, den die nächste Person — oft mein zukünftiges Ich — ohne Landkarte lesen kann.`,
+      "about.p3": `Wenn ich nicht gerade Code schreibe, lese ich meist darüber, wie andere ihren schreiben. <strong>Ersetze dies durch deine eigene Geschichte</strong> — was dich angezogen hat und was du als Nächstes anstrebst.`,
+      "about.stackTitle": `Zuletzt im Einsatz`,
+      "work.eyebrow": `// ausgewählte arbeiten`, "work.title": `Was ich gebaut habe.`,
+      "p1.title": `Linked-List-Bibliothek`,
+      "p1.desc": `Eine von Grund auf entwickelte Implementierung einfach und doppelt verketteter Listen in Java, mit Fokus auf sauberer Iteration und vorhersehbarer Behandlung von Randfällen.`,
+      "p2.title": `Projekt Zwei`,
+      "p2.desc": `Eine kurze, konkrete Beschreibung: das gelöste Problem, der eingegangene Kompromiss und ein Ergebnis, auf das du stolz bist. Vermeide allgemeine Floskeln.`,
+      "p3.title": `Projekt Drei`,
+      "p3.desc": `Eine kurze, konkrete Beschreibung: das gelöste Problem, der eingegangene Kompromiss und ein Ergebnis, auf das du stolz bist. Vermeide allgemeine Floskeln.`,
+      "skills.eyebrow": `// werkzeugkasten`, "skills.title": `Wozu ich greife.`,
+      "skill1.title": `Sprachen`, "skill2.title": `Frameworks`, "skill3.title": `Werkzeuge`, "skill4.title": `Grundlagen`,
+      "path.eyebrow": `// werdegang`, "path.title": `Wo ich war.`,
+      "xp1.when": `2024 — Heute`, "xp1.role": `Rolle / Titel <span class="co">@ Firma oder Schule</span>`,
+      "xp1.li1": `Beschreibe eine echte Verantwortung und ihre Wirkung — Zahlen helfen.`,
+      "xp1.li2": `Nenne eine konkrete Technologie, mit der du gearbeitet hast, und was du ausgeliefert hast.`,
+      "xp2.when": `2022 — 2024`, "xp2.role": `Frühere Rolle <span class="co">@ Vorheriger Ort</span>`,
+      "xp2.li1": `Ein weiterer konkreter Beitrag, formuliert um das Ergebnis, nicht die Aktivität.`,
+      "xp2.li2": `Eine Sache, die du gelernt hast und die deine Arbeitsweise verändert hat.`,
+      "contact.eyebrow": `// sag hallo`, "contact.big": `Lass uns etwas<br>bauen.`,
+      "contact.p": `Ich bin offen für Junior-Stellen, Praktika und spannende Kooperationen. Am schnellsten erreichst du mich per E-Mail — ich lese alles.`,
+      "foot.note": `© 2026 Galaa Sanjjav — von Hand gebaut.`
+    },
+    mn: {
+      "nav.about": `миний тухай`, "nav.work": `ажлууд`, "nav.skills": `ур чадвар`, "nav.path": `замнал`, "nav.contact": `холбоо барих`,
+      "hero.status": `шинэ ажилд бэлэн · 2026`,
+      "hero.h1": `Би <em>бат бөх</em><br>программ хангамж бүтээдэг.`,
+      "hero.sub": `Намайг <strong>Галаа Санжав</strong> гэдэг, би хүмүүсийн харж чаддаггүй хэсгүүдэд анхаардаг программ хөгжүүлэгч — цэгцтэй өгөгдлийн бүтэц, найдвартай алдаа боловсруулалт, замд саад болохгүй интерфэйс. Одоогоор <strong>Java</strong> болон вэб дээр ур чадвараа хурцалж байна.`,
+      "hero.cta1": `Сонгосон ажлуудыг үзэх`, "hero.cta2": `Холбоо барих`,
+      "about.eyebrow": `// миний тухай`, "about.title": `Сурсаар л байгаа хөгжүүлэгч.`,
+      "about.p1": `Программ хангамж руу орох замнал минь хичээлийн танхимаас бус сониуч зангаас эхэлсэн — жижиг программуудыг задалж яаж ажилладгийг нь үздэг байлаа. Тэр зуршил минь урлаг болж хувирсан.`,
+      "about.p2": `Сүүлийн үед би голчлон <strong>Java</strong> болон вэб дээр ажиллаж, өгөгдлийн бүтцийг эхнээс нь бүтээж, бодит хэдий ч даруухан асуудлуудыг шийддэг жижиг хэрэгслүүд хийдэг. Дараагийн хүн — ихэвчлэн ирээдүйн би — газрын зураггүйгээр уншиж чадах код бичихийг эрхэмлэдэг.`,
+      "about.p3": `Код бичээгүй үедээ би ихэвчлэн бусад хүмүүс хэрхэн код бичдэг талаар уншдаг. <strong>Үүнийг өөрийнхөө түүхээр солиорой</strong> — таныг юу татсан, дараа нь юунд тэмүүлж байгаагаа.`,
+      "about.stackTitle": `Сүүлд ашиглаж буй`,
+      "work.eyebrow": `// сонгосон ажлууд`, "work.title": `Миний бүтээсэн зүйлс.`,
+      "p1.title": `Холбоост жагсаалтын сан`,
+      "p1.desc": `Java дээр нэг ба хос холбоост жагсаалтыг эхнээс нь хэрэгжүүлсэн нь — цэвэр давталт болон ирмэгийн тохиолдлыг урьдчилан таамаглах боломжтой боловсруулалтад төвлөрсөн.`,
+      "p2.title": `Хоёрдугаар төсөл`,
+      "p2.desc": `Богино, тодорхой тайлбар: шийдсэн асуудал, хийсэн буулт, бахархдаг нэг үр дүн. Ерөнхий хоосон үг бүү бич.`,
+      "p3.title": `Гуравдугаар төсөл`,
+      "p3.desc": `Богино, тодорхой тайлбар: шийдсэн асуудал, хийсэн буулт, бахархдаг нэг үр дүн. Ерөнхий хоосон үг бүү бич.`,
+      "skills.eyebrow": `// багаж хэрэгсэл`, "skills.title": `Миний ашигладаг зүйлс.`,
+      "skill1.title": `Хэлнүүд`, "skill2.title": `Фрэймворкууд`, "skill3.title": `Багажууд`, "skill4.title": `Үндэс суурь`,
+      "path.eyebrow": `// замнал`, "path.title": `Миний туулсан зам.`,
+      "xp1.when": `2024 — Одоог хүртэл`, "xp1.role": `Үүрэг / Албан тушаал <span class="co">@ Компани эсвэл Сургууль</span>`,
+      "xp1.li1": `Бодит үүрэг хариуцлага болон түүний нөлөөг тайлбарла — тоо баримт тус болно.`,
+      "xp1.li2": `Ашигласан тодорхой технологи болон юу гаргасныгаа дурьд.`,
+      "xp2.when": `2022 — 2024`, "xp2.role": `Өмнөх үүрэг <span class="co">@ Өмнөх газар</span>`,
+      "xp2.li1": `Үйл ажиллагаа бус үр дүнд төвлөрсөн өөр нэг тодорхой хувь нэмэр.`,
+      "xp2.li2": `Ажиллах хэв маягийг чинь өөрчилсөн нэг суралцсан зүйл.`,
+      "contact.eyebrow": `// сайн уу гэж хэлээрэй`, "contact.big": `Хамтдаа юм<br>бүтээцгээе.`,
+      "contact.p": `Би junior албан тушаал, дадлага болон сонирхолтой хамтын ажиллагаанд нээлттэй. Надтай холбогдох хамгийн хурдан арга бол и-мэйл — би бүгдийг уншдаг.`,
+      "foot.note": `© 2026 Галаа Санжав — гараар бүтээв.`
+    }
+  };
+
+  const langBtns = document.querySelectorAll('.lang-btn');
+  function applyLang(lang) {
+    if (!I18N[lang]) lang = 'en';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const val = I18N[lang][el.getAttribute('data-i18n')];
+      if (val != null) el.innerHTML = val;
+    });
+    langBtns.forEach(b => {
+      const on = b.dataset.lang === lang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    localStorage.setItem('lang', lang);
+  }
+  let lang = localStorage.getItem('lang');
+  if (!lang) {
+    const sys = (navigator.language || 'en').slice(0, 2);
+    lang = I18N[sys] ? sys : 'en';
+  }
+  applyLang(lang);
+  langBtns.forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
 
   // Scroll reveal (respects reduced motion)
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
