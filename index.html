@@ -4,7 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Name — Software Developer</title>
-<meta name="description" content="Portfolio of Your Name, a software developer building reliable, human-centered software.">
+<meta name="description" content="Portfolio of Your Name, a software developer building reliable, human-centered software in Java and on the web.">
+<link rel="canonical" href="https://galaa-arch.github.io/portfolio/">
+
+<!-- Favicon + browser theme color -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0f0f0d">
+
+<!-- Open Graph (Facebook, LinkedIn, iMessage, Slack…) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Your Name — Software Developer">
+<meta property="og:description" content="I build software that holds up — Java and the web.">
+<meta property="og:url" content="https://galaa-arch.github.io/portfolio/">
+<meta property="og:image" content="https://galaa-arch.github.io/portfolio/og.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your Name — Software Developer">
+<meta name="twitter:description" content="I build software that holds up — Java and the web.">
+<meta name="twitter:image" content="https://galaa-arch.github.io/portfolio/og.svg">
 
 <!-- Fonts: Fraunces (display serif) + Space Grotesk (body) + Space Mono (labels) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +38,7 @@
     --line:      #2a2a25;
     --text:      #ece7dd;
     --muted:     #908a7c;
-    --accent:    #cbf24e;
+    --accent:    #ff5c35;
     --accent-dim:#9bb73a;
 
     --font-display: "Fraunces", Georgia, serif;
@@ -28,6 +48,19 @@
     --maxw: 1120px;
     --gut: clamp(20px, 5vw, 64px);
   }
+
+  /* Light theme: same variable names, lighter values. Activated by data-theme="light" on <html>. */
+  [data-theme="light"] {
+    --bg:       #f7f4ed;
+    --bg-raise: #ffffff;
+    --line:     #e3ddd0;
+    --text:     #1b1a16;
+    --muted:    #6f6857;
+    --accent:   #b3431a;
+  }
+  [data-theme="light"] .nav { background: rgba(247,244,237,0.75); }
+  [data-theme="light"] .btn-primary { color: #fff; }
+  [data-theme="light"] ::selection { background: var(--accent); color: #fff; }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -45,6 +78,24 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+  }
+
+  /* Imagery layer 1 — a faint grid that fades out toward the edges */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 25%, transparent 75%);
+            mask-image: radial-gradient(120% 80% at 50% 0%, #000 25%, transparent 75%);
+    opacity: .4;
+  }
+  /* Imagery layer 2 — subtle film grain for depth/texture */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   ::selection { background: var(--accent); color: #0f0f0d; }
@@ -120,8 +171,38 @@
   }
   .menu-btn svg { width: 20px; height: 20px; }
 
+  .nav-right { display: flex; align-items: center; gap: 18px; }
+  .theme-btn {
+    background: none; border: 1px solid var(--line);
+    color: var(--text); width: 42px; height: 42px; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn svg { width: 18px; height: 18px; }
+
   /* ---- Hero ---- */
-  .hero { padding: clamp(60px, 12vh, 130px) 0 clamp(50px, 9vh, 110px); }
+  .hero { padding: clamp(60px, 12vh, 130px) 0 clamp(50px, 9vh, 110px); position: relative; }
+  /* soft accent glow sitting behind the headline */
+  .hero::before {
+    content: ""; position: absolute; z-index: -1; pointer-events: none;
+    top: -8%; left: -12%; width: 55%; height: 115%;
+    background: radial-gradient(circle at 40% 40%, rgba(255,92,53,.14), transparent 62%);
+  }
+
+  /* Orchestrated entrance: each hero element rises in, staggered */
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .hero > * { opacity: 0; animation: riseIn .85s cubic-bezier(.2,.7,.2,1) forwards; }
+  .hero .status { animation-delay: .05s; }
+  .hero h1      { animation-delay: .18s; }
+  .hero-sub     { animation-delay: .42s; }
+  .actions      { animation-delay: .58s; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero > * { opacity: 1; animation: none; }
+  }
   .status {
     display: inline-flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 13px; color: var(--muted);
@@ -172,9 +253,20 @@
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
   /* ---- Section scaffolding ---- */
+  main { counter-reset: section; }
   section[id] { scroll-margin-top: 90px; }
-  .block { padding: clamp(64px, 11vh, 130px) 0; border-top: 1px solid var(--line); }
-  .head { margin-bottom: 56px; }
+  .block { padding: clamp(64px, 11vh, 130px) 0; border-top: 1px solid var(--line); counter-increment: section; }
+  .head { margin-bottom: 56px; position: relative; }
+  /* oversized faded numeral establishes depth + section hierarchy */
+  .head::after {
+    content: counter(section, decimal-leading-zero);
+    position: absolute; top: -0.35em; right: 0; z-index: 0;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(5rem, 14vw, 11rem); line-height: 1;
+    color: var(--text); opacity: .055; pointer-events: none;
+    letter-spacing: -0.03em;
+  }
+  .head > * { position: relative; z-index: 1; }
   .head h2 {
     font-family: var(--font-display);
     font-weight: 400;
@@ -203,6 +295,10 @@
     transition: background .25s ease;
   }
   .project:hover { background: var(--bg-raise); }
+  /* featured lead project: heavier weight than the rest */
+  .project:first-child { border-left: 3px solid var(--accent); background: var(--bg-raise); }
+  .project:first-child h3 { font-size: clamp(1.8rem, 4.5vw, 2.7rem); }
+  .project:first-child .pnum::after { content: "  · featured"; color: var(--muted); }
   .project .pnum { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
   .project h3 { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 500; margin-bottom: 12px; }
   .project p { color: var(--muted); max-width: 56ch; margin-bottom: 18px; }
@@ -283,19 +379,24 @@
 <!-- NAV -->
 <header class="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="brand">Your<b>Name</b></a>
-    <nav>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about"><span class="idx">01</span>about</a></li>
-        <li><a href="#work"><span class="idx">02</span>work</a></li>
-        <li><a href="#skills"><span class="idx">03</span>skills</a></li>
-        <li><a href="#path"><span class="idx">04</span>path</a></li>
-        <li><a href="#contact"><span class="idx">05</span>contact</a></li>
-      </ul>
-    </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+    <a href="#top" class="brand">Galaa<b>Sanjjav</b></a>
+    <div class="nav-right">
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about"><span class="idx">01</span>about</a></li>
+          <li><a href="#work"><span class="idx">02</span>work</a></li>
+          <li><a href="#skills"><span class="idx">03</span>skills</a></li>
+          <li><a href="#path"><span class="idx">04</span>path</a></li>
+          <li><a href="#contact"><span class="idx">05</span>contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-btn" id="themeBtn" aria-label="Switch to light theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -305,7 +406,7 @@
   <span class="status"><span class="dot"></span> available for new work · 2026</span>
   <h1>I build software<br>that <em>holds up</em>.</h1>
   <p class="hero-sub">
-    I'm <strong>Your Name</strong>, a software developer who cares about the parts people
+    I'm <strong>Galaa Sanjjav</strong>, a software developer who cares about the parts people
     never see — clear data structures, honest error handling, and interfaces that
     don't get in the way. Currently sharpening my craft in <strong>Java</strong> and the web.
   </p>
@@ -314,7 +415,7 @@
       See selected work
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
-    <a href="mailto:youremail@example.com" class="btn btn-ghost">
+    <a href="mailto:galaa07082004@gmail.com" class="btn btn-ghost">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
       Get in touch
     </a>
@@ -489,7 +590,7 @@
 <section id="contact" class="block contact">
   <div class="wrap">
     <span class="eyebrow reveal">// say hello</span>
-    <p class="big reveal"><a href="mailto:youremail@example.com">Let's build<br>something.</a></p>
+    <p class="big reveal"><a href="mailto:galaa07082004@gmail.com">Let's build<br>something.</a></p>
     <p class="reveal">
       I'm open to junior roles, internships, and interesting collaborations.
       The fastest way to reach me is email — I read everything.
@@ -530,6 +631,29 @@
       menuBtn.setAttribute('aria-expanded', 'false');
     })
   );
+
+  // Theme toggle (dark <-> light), remembered across visits
+  const themeBtn = document.getElementById('themeBtn');
+  const ICON_SUN  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg>';
+  const ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>';
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    // Show the icon for the theme you'd switch TO.
+    themeBtn.innerHTML = theme === 'light' ? ICON_MOON : ICON_SUN;
+    themeBtn.setAttribute('aria-label', theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+  }
+
+  // On load: use the saved choice, else follow the system preference.
+  let saved = localStorage.getItem('theme');
+  if (!saved) saved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  applyTheme(saved);
+
+  themeBtn.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+  });
 
   // Scroll reveal (respects reduced motion)
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
