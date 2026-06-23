@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
 <title>Galaa Sanjjav — Computer Science Student, TU Dresden</title>
 <meta name="description" content="Galaa Sanjjav — a Mongolian computer science student at TU Dresden, learning to build a career in tech. Java, the web, and a lot of basketball.">
 <link rel="canonical" href="https://galaa-arch.github.io/portfolio/">
@@ -194,7 +195,7 @@
   [data-theme="light"] .lang-btn.active { color: #fff; }
 
   /* ---- Hero ---- */
-  .hero { padding: clamp(60px, 12vh, 130px) 0 clamp(50px, 9vh, 110px); position: relative; }
+  .hero { padding-block: clamp(60px, 12vh, 130px) clamp(50px, 9vh, 110px); position: relative; }
   /* soft accent glow sitting behind the headline */
   .hero::before {
     content: ""; position: absolute; z-index: -1; pointer-events: none;
@@ -207,13 +208,13 @@
     from { opacity: 0; transform: translateY(26px); }
     to   { opacity: 1; transform: none; }
   }
-  .hero > * { opacity: 0; animation: riseIn .85s cubic-bezier(.2,.7,.2,1) forwards; }
+  html.js .hero > * { opacity: 0; animation: riseIn .85s cubic-bezier(.2,.7,.2,1) forwards; }
   .hero .status { animation-delay: .05s; }
   .hero h1      { animation-delay: .18s; }
   .hero-sub     { animation-delay: .42s; }
   .actions      { animation-delay: .58s; }
   @media (prefers-reduced-motion: reduce) {
-    .hero > * { opacity: 1; animation: none; }
+    html.js .hero > * { opacity: 1; animation: none; }
   }
   .status {
     display: inline-flex; align-items: center; gap: 9px;
@@ -364,10 +365,11 @@
   .socials { display: flex; gap: 14px; }
   .foot-note { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 
-  /* ---- Reveal animation ---- */
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+  /* ---- Reveal animation (progressive enhancement: only hides when JS is active) ---- */
+  .reveal { transition: opacity .7s ease, transform .7s ease; }
+  html.js .reveal { opacity: 0; transform: translateY(20px); }
+  html.js .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { html.js .reveal { opacity: 1; transform: none; } }
 
   /* ---- Responsive ---- */
   @media (max-width: 860px) {
